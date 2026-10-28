@@ -18,3 +18,16 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Docker image
+         run: docker build -t preranm/my-devops-app:latest .
+
+      - name: Push Docker image
+         run: docker push preranm/my-devops-app:latest
+        
